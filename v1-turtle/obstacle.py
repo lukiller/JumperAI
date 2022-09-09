@@ -3,6 +3,9 @@ import jumper
 
 
 class Obstacle:
+    OBSTACLE_TREE = 1
+    OBSTACLE_BIRD = 2
+
     TREE_WIDTH = 1
     TREE_HEIGHT = 5
     TREE_GROUND = jumper.GROUND + \
@@ -15,7 +18,7 @@ class Obstacle:
 
     def createTree(self):
         tree = turtle.Turtle()
-        tree.type = "tree"
+        tree.type = Obstacle.OBSTACLE_TREE
         tree.speed(0)
         tree.shape("square")
         tree.shapesize(stretch_wid=Obstacle.TREE_HEIGHT,
@@ -33,7 +36,7 @@ class Obstacle:
 
     def createBird(self):
         bird = turtle.Turtle()
-        bird.type = "bird"
+        bird.type = Obstacle.OBSTACLE_BIRD
         bird.speed(0)
         bird.shape("square")
         bird.shapesize(stretch_wid=Obstacle.BIRD_HEIGHT,
@@ -51,8 +54,6 @@ class Obstacle:
 
     def moveObstacle(self, obstacle):
         obstacle.setx(obstacle.xcor() - jumper.SPEED)
-        # if obstacle.xcor() < -(jumper.GAME_WIDTH / 2):
-        #     obstacle.setx(jumper.GAME_WIDTH / 2)
 
     def arrived(self, obstacle):
         if obstacle.xcor() <= -(jumper.GAME_WIDTH / 2) - obstacle.width:

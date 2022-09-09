@@ -12,7 +12,7 @@ class Player:
     STATE_JUMPING = "jumping"
     STATE_CROUCHING = "crouching"
 
-    def createPlayer(self):
+    def createPlayer(self, offset, color):
         player = turtle.Turtle()
         player.speed(0)
         player.shape("square")
@@ -20,11 +20,11 @@ class Player:
                          stretch_len=Player.PLAYER_WIDTH)
         player.width = Player.PLAYER_WIDTH * jumper.TURTLE_SIZE
         player.height = Player.PLAYER_HEIGHT * jumper.TURTLE_SIZE
-        player.color("white")
+        player.color(color)
         player.dy = 0
         player.penup()
         player.state = Player.STATE_READY
-        player.goto(Player.PLAYER_POSX, Player.PLAYER_GROUND)
+        player.goto(Player.PLAYER_POSX + offset, Player.PLAYER_GROUND)
         return player
 
     def movePlayer(self, player):

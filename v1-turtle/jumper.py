@@ -7,9 +7,13 @@ GROUND = -(GAME_HEIGHT / 2 - 50)
 STARTX = GAME_WIDTH / 2
 GRAVITY = -0.8
 SPEED = 8
-MIN_DISTANCE = 30
-MAX_DISTANCE = 70
+START_OBSTACLE_DISTANCE = 50
+MIN_OBSTACLE_DISTANCE = 30
+MAX_OBSTACLE_DISTANCE = 70
+MAX_PLAYERS = 1
 
+Colors = ["dodgerblue", "maroon", "navy", "indianred", "goldenrod",
+          "forestgreen", "darkorange", "turquoise", "olive", "darkviolet"]
 status = turtle.Turtle()
 
 
