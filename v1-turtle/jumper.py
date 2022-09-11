@@ -3,6 +3,7 @@ import turtle
 GAME_WIDTH = 800
 GAME_HEIGHT = 350
 TURTLE_SIZE = 20  # This is the default turtle size (20 x 20)
+MAX_PLAYERS = 1
 GROUND = -(GAME_HEIGHT / 2 - 50)
 STARTX = GAME_WIDTH / 2
 GRAVITY = -0.8
@@ -10,7 +11,10 @@ SPEED = 8
 START_OBSTACLE_DISTANCE = 50
 MIN_OBSTACLE_DISTANCE = 30
 MAX_OBSTACLE_DISTANCE = 70
-MAX_PLAYERS = 25
+ACTION_NONE = None
+ACTION_JUMP = "jump"
+ACTION_CROUCH = "crouch"
+ACTION_STANDUP = "standup"
 
 Colors = ["dodgerblue", "maroon", "navy", "indianred", "goldenrod",
           "forestgreen", "darkorange", "turquoise", "olive", "darkviolet"]

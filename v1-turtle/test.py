@@ -1,6 +1,7 @@
 import turtle
 from functools import reduce
 
+# --[ reduce booleans ]--------------------------------------------------------
 arr = [True, False, True, False]
 res = all(arr)
 
@@ -10,6 +11,7 @@ res = all(arr)
 arr = [True, True, True, True]
 res = all(arr)
 
+# --[ reduce objects ]---------------------------------------------------------
 players = [turtle.Turtle()]
 players[0].gameOver = False
 gameOver = reduce(
@@ -36,4 +38,5 @@ players[1].gameOver = False
 gameOver = reduce(
     lambda result, player: result and player.gameOver, players, True)
 
+# -----------------------------------------------------------------------------
 final = res

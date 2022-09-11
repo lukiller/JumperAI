@@ -30,16 +30,19 @@ for p in range(jumper.MAX_PLAYERS):
 
 def jump():
     for player in players:
+        player.action = jumper.ACTION_JUMP
         playersManager.jump(player)
 
 
 def crouch():
     for player in players:
+        player.action = jumper.ACTION_CROUCH
         playersManager.crouch(player)
 
 
 def standup():
     for player in players:
+        player.action = jumper.ACTION_STANDUP
         playersManager.standup(player)
 
 
@@ -95,6 +98,7 @@ game.onkeypress(crouch, "Down")
 
 next = jumper.START_OBSTACLE_DISTANCE
 while not gameOver:
+    game.tracer(0, 0)
     distance += 1
     scoreboard.showScore(distance)
     movePlayers(players, obstacles, distance)

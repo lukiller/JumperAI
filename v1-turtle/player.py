@@ -24,6 +24,7 @@ class Player:
         player.dy = 0
         player.penup()
         player.state = Player.STATE_READY
+        player.action = jumper.ACTION_NONE
         player.gameOver = False
         player.goto(Player.PLAYER_POSX + offset, Player.PLAYER_GROUND)
         return player
@@ -43,6 +44,7 @@ class Player:
         if player.state == Player.STATE_READY:
             player.dy = Player.JUMP_HEIGHT
             player.state = Player.STATE_JUMPING
+            player.action = jumper.ACTION_NONE
 
     def crouch(self, player):
         if player.state == Player.STATE_READY:
@@ -65,10 +67,14 @@ class Player:
                 Player.PLAYER_HEIGHT * jumper.TURTLE_SIZE / 2
 
     def collision(self, obj1, obj2):
-        if (obj1.xcor() + obj1.width >= obj2.xcor() and
-            obj1.xcor() <= obj2.xcor() + obj2.width and
-            obj1.ycor() + obj1.height >= obj2.ycor() and
-                obj1.ycor() <= obj2.ycor() + obj2.height):
+        obj1.x = obj1.xcor() - (obj1.width / 2)
+        obj2.x = obj2.xcor() - (obj2.width / 2)
+        obj1.y = obj1.ycor() - (obj1.height / 2)
+        obj2.y = obj2.ycor() - (obj2.height / 2)
+        if (obj1.x + obj1.width >= obj2.x and
+            obj1.x <= obj2.x + obj2.width and
+            obj1.y + obj1.height >= obj2.y and
+                obj1.y <= obj2.y + obj2.height):
             return True
 
     def getGround(self):
