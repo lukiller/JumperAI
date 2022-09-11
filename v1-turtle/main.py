@@ -91,11 +91,20 @@ def moveObstacle(obstacle, players):
             player.color("red")
 
 
-game.listen()
-game.onkeypress(jump, "space")
-game.onkeyrelease(standup, "Down")
-game.onkeypress(crouch, "Down")
+def listenKeys():
+    game.listen()
+    game.onkeypress(jump, "space")
+    game.onkeyrelease(standup, "Down")
+    game.onkeypress(crouch, "Down")
 
+
+def unlistenKeys():
+    game.onkeypress(None, "space")
+    game.onkeyrelease(None, "Down")
+    game.onkeypress(None, "Down")
+
+
+listenKeys()
 next = jumper.START_OBSTACLE_DISTANCE
 while not gameOver:
     game.tracer(0, 0)
@@ -113,6 +122,7 @@ while not gameOver:
 
     game.update()
 
+unlistenKeys()
 scoreboard.showFinish(distance)
 
 # Prevent game from auto-closing
