@@ -20,3 +20,8 @@ class Score:
             self.score.clear()
             self.score.write(f"Distance {meters}m",
                              font=("Courier", 24, "normal"))
+
+    def showFinish(self, meters):
+        self.score.clear()
+        self.score.write(f"GAME OVER (Distance {meters}m)",
+                            font=("Courier", 24, "normal"))

@@ -3,6 +3,7 @@
 # https://www.youtube.com/watch?v=XGf2GcyHPhc&t
 # https://www.youtube.com/watch?v=iX_on3VxZzk
 
+from functools import reduce
 import jumper
 import random
 from ground import Ground
@@ -42,8 +43,9 @@ def standup():
         playersManager.standup(player)
 
 
-def movePlayers(players, obstacles):
+def movePlayers(players, obstacles, distance):
     for player in players:
+        player.distance = distance
         movePlayer(player, obstacles)
 
 
@@ -82,7 +84,7 @@ def moveObstacle(obstacle, players):
     obstacleManager.moveObstacle(obstacle)
     for player in players:
         if playersManager.collision(player, obstacle):
-            gameOver = True
+            player.gameOver = True
             player.color("red")
 
 
@@ -92,18 +94,23 @@ game.onkeyrelease(standup, "Down")
 game.onkeypress(crouch, "Down")
 
 next = jumper.START_OBSTACLE_DISTANCE
-while True:
+while not gameOver:
     distance += 1
     scoreboard.showScore(distance)
-    movePlayers(players, obstacles)
+    movePlayers(players, obstacles, distance)
 
     if distance == next:
         next = createNextObstacle(distance, obstacles)
 
     moveObstacles(obstacles, players)
     obstacles[:] = filterfalse(obstacleManager.arrived, obstacles)
+    gameOver = reduce(
+        lambda result, player: result and player.gameOver, players, True)
 
     game.update()
 
-    # if gameOver == True:
-    #     break
+scoreboard.showFinish(distance)
+
+# Prevent game from auto-closing
+while True:
+    game.update()

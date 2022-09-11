@@ -10,7 +10,7 @@ SPEED = 8
 START_OBSTACLE_DISTANCE = 50
 MIN_OBSTACLE_DISTANCE = 30
 MAX_OBSTACLE_DISTANCE = 70
-MAX_PLAYERS = 1
+MAX_PLAYERS = 25
 
 Colors = ["dodgerblue", "maroon", "navy", "indianred", "goldenrod",
           "forestgreen", "darkorange", "turquoise", "olive", "darkviolet"]

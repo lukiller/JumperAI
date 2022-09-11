@@ -24,6 +24,7 @@ class Player:
         player.dy = 0
         player.penup()
         player.state = Player.STATE_READY
+        player.gameOver = False
         player.goto(Player.PLAYER_POSX + offset, Player.PLAYER_GROUND)
         return player
 
