@@ -3,6 +3,10 @@
 # https://www.youtube.com/watch?v=XGf2GcyHPhc&t
 # https://www.youtube.com/watch?v=iX_on3VxZzk
 
+# In order to make AI exeute actions along all the players
+# every action is set to the player and then executed by
+# the player manager
+
 from functools import reduce
 import jumper
 import random
@@ -14,6 +18,7 @@ from itertools import filterfalse
 
 distance = 0
 gameOver = False
+automatic = False  # Execute actions in automatic mode (for AI)
 
 game = jumper.createGame()
 Ground.createGround()
@@ -31,19 +36,22 @@ for p in range(jumper.MAX_PLAYERS):
 def jump():
     for player in players:
         player.action = jumper.ACTION_JUMP
-        playersManager.jump(player)
+        if not automatic:
+            playersManager.jump(player)
 
 
 def crouch():
     for player in players:
         player.action = jumper.ACTION_CROUCH
-        playersManager.crouch(player)
+        if not automatic:
+            playersManager.crouch(player)
 
 
 def standup():
     for player in players:
         player.action = jumper.ACTION_STANDUP
-        playersManager.standup(player)
+        if not automatic:
+            playersManager.standup(player)
 
 
 def movePlayers(players, obstacles, distance):
@@ -56,12 +64,12 @@ def movePlayer(player, obstacles):
     if len(obstacles) == 0:
         return
     type = obstacles[0].type
-    distance = obstacles[0].xcor() - (player.xcor() + player.width)
-    if distance <= 0:  # assumes there is always more than 1 obstacle
+    distanceToNextObstacle = (obstacles[0].xcor() - obstacles[0].width / 2) - (player.xcor() + player.width / 2)
+    if distanceToNextObstacle <= 0:  # assumes there is always more than 1 obstacle
         type = obstacles[1].type
-        distance = obstacles[1].xcor() - (player.xcor() + player.width)
+        distanceToNextObstacle = (obstacles[1].xcor() - obstacles[1].width / 2) - (player.xcor() + player.width / 2)
     player.nextObstacleType = type
-    player.distanceToNextObstacle = distance
+    player.distanceToNextObstacle = distanceToNextObstacle
     playersManager.movePlayer(player)
 
 
