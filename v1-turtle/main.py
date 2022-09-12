@@ -3,10 +3,6 @@
 # https://www.youtube.com/watch?v=XGf2GcyHPhc&t
 # https://www.youtube.com/watch?v=iX_on3VxZzk
 
-# In order to make AI exeute actions along all the players
-# every action is set to the player and then executed by
-# the player manager
-
 from functools import reduce
 import jumper
 import random
@@ -18,7 +14,6 @@ from itertools import filterfalse
 
 distance = 0
 gameOver = False
-automatic = False  # Execute actions in automatic mode (for AI)
 
 game = jumper.createGame()
 Ground.createGround()
@@ -34,28 +29,35 @@ for p in range(jumper.MAX_PLAYERS):
 
 
 def jump():
-    for player in players:
+    for player in filter(lambda player: not player.gameOver, players):
         player.action = jumper.ACTION_JUMP
-        if not automatic:
-            playersManager.jump(player)
+        playersManager.jump(player)
+
+
+def jump1():
+    players[0].action = jumper.ACTION_JUMP
+    playersManager.jump(players[0])
+
+
+def jump2():
+    players[1].action = jumper.ACTION_JUMP
+    playersManager.jump(players[1])
 
 
 def crouch():
-    for player in players:
+    for player in filter(lambda player: not player.gameOver, players):
         player.action = jumper.ACTION_CROUCH
-        if not automatic:
-            playersManager.crouch(player)
+        playersManager.crouch(player)
 
 
 def standup():
-    for player in players:
+    for player in filter(lambda player: not player.gameOver, players):
         player.action = jumper.ACTION_STANDUP
-        if not automatic:
-            playersManager.standup(player)
+        playersManager.standup(player)
 
 
 def movePlayers(players, obstacles, distance):
-    for player in players:
+    for player in filter(lambda player: not player.gameOver, players):
         player.distance = distance
         movePlayer(player, obstacles)
 
@@ -104,6 +106,8 @@ def listenKeys():
     game.onkeypress(jump, "space")
     game.onkeyrelease(standup, "Down")
     game.onkeypress(crouch, "Down")
+    game.onkeypress(jump1, "1")
+    game.onkeypress(jump2, "2")
 
 
 def unlistenKeys():
@@ -125,8 +129,13 @@ while not gameOver:
 
     moveObstacles(obstacles, players)
     obstacles[:] = filterfalse(obstacleManager.arrived, obstacles)
-    gameOver = reduce(
-        lambda result, player: result and player.gameOver, players, True)
+    gameOver = reduce(lambda result, player: result and player.gameOver, players, True)
+
+    for player in players:
+        # pasar cada player a la AI
+        # la AI va a decir que tecla presionar
+        # ver donde poner esto, si acá o más arriba
+        pass
 
     game.update()
 

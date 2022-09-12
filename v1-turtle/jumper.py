@@ -2,7 +2,7 @@ import turtle
 
 GAME_WIDTH = 800
 GAME_HEIGHT = 350
-TURTLE_SIZE = 20  # This is the default turtle size (20 x 20)
+TURTLE_SIZE = 20  # This is the default turtle size (20 x 20). The (0, 0) is in the center of the turtle.
 MAX_PLAYERS = 2
 GROUND = -(GAME_HEIGHT / 2 - 50)
 STARTX = GAME_WIDTH / 2

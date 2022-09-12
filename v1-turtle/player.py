@@ -6,7 +6,7 @@ class Player:
     PLAYER_POSX = -(jumper.GAME_WIDTH / 2 - 50)
     PLAYER_WIDTH = 1
     PLAYER_HEIGHT = 3
-    PLAYER_GROUND = jumper.GROUND + PLAYER_HEIGHT * jumper.TURTLE_SIZE / 2
+    PLAYER_GROUND = jumper.GROUND + PLAYER_HEIGHT * jumper.TURTLE_SIZE / 2 # The ground is in the middle of the player height
     JUMP_HEIGHT = 15
     STATE_READY = "ready"
     STATE_JUMPING = "jumping"
